@@ -1,0 +1,31 @@
+<button onclick="getData()">获取数据</button>
+
+<script>
+  function getData() {
+    const query = `
+      query GetSuperHero($heroName: String, $thing: String) {
+        getSuperHero(heroName: $heroName) {
+          name
+          age
+          doSomething(thing: $thing)
+        }
+      }
+    `
+    const variables = { heroName: 'ironman', thing: 'watching TV' }
+
+    fetch('localhost:3000/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        query, variables
+      })
+    })
+    .then(res => res.json())
+    .then(json => {
+      console.log(json)
+    })
+  }
+</script>
