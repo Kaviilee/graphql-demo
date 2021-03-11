@@ -21,7 +21,7 @@ const todoSchema = new Schema({
     required: true
   },
   createdAt: {
-    type: String,
+    type: Date,
     default: new Date()
   },
 });

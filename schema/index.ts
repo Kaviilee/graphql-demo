@@ -118,7 +118,7 @@ const RootQuery = new GraphQLObjectType({
           type: GraphQLString
         }
       },
-      resolve: async(parent, args) => {
+      resolve: async(_, args) => {
         return await User.findById(args.id);
       }
     },
@@ -145,7 +145,7 @@ const Mutation = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString)
         },
       },
-      resolve: async (parent, { username, password }: { username: string; password: string; }, request) => {
+      resolve: async (_, { username, password }: { username: string; password: string; }, request) => {
         console.log(request);
         const user = await User.findOne({ username });
 
@@ -194,7 +194,7 @@ const Mutation = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString)
         }
       },
-      resolve: async(parent, args) => {
+      resolve: async(_, args) => {
         const user = new User({
           username: args.username,
           password: await bcrypt.hash(args.password, 10),
@@ -220,7 +220,7 @@ const Mutation = new GraphQLObjectType({
           type: GraphQLString
         },
       },
-      resolve(parent, args, req) {
+      resolve(_, args, req) {
         const userId = getUserId(req);
         // console.log(userId);
         const todo = new Todo({
